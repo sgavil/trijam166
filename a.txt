@@ -1,0 +1,21 @@
+- Disparador++
+- Balas por disparo++
+- Escudo++
+- Rebote en impacto++
+- Velocidad angular++
+- DañoBas3++
+- ToxinaChance%++
+- ToxinaDamage++
+- SlowChance%++
+- SlowAmount++
+- CriticalChance%++
+- CriticalMultiplier++ 
+
+
+===============================
+qué cambia en cada güeib
+
+- Vida max enemigos
+- Velocidad mov enemigos
+- Cantidad de enemigos  
+
