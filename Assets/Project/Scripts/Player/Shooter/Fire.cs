@@ -12,6 +12,10 @@ public class Fire : MonoBehaviour
     [SerializeField]
     Transform shotOrigin;
 
+    private int bulletsPerShot = 1;
+
+    public int BulletsPerShot {get { return bulletsPerShot; } set { bulletsPerShot = value;}}
+
     void Start()
     {
         bulletPool = Pool.Instance;
@@ -24,13 +28,25 @@ public class Fire : MonoBehaviour
         
     }
 
-    public void fire(){
+    public void shot(){
 
-       var bullet = bulletPool.getFromPool();
-        bullet.transform.forward = cachedTransform.forward;
-        bullet.transform.position = shotOrigin.position;
+        var bullet = bulletPool.getFromPool();
+        var bulletTranform = bullet.transform;
+        bulletTranform.forward = cachedTransform.forward;
+        bulletTranform.position = shotOrigin.position;
+        bulletTranform.GetComponent<Bullet>().activate();
         bullet.SetActive(true);
 
+    }
+
+    public void fire(){
+
+        var bullets = 0;
+
+        while(bullets < bulletsPerShot){
+            Invoke("shot", 0.2f * bullets);
+            bullets++;
+        }
     }
 
 }
