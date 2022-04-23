@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6414880242625873383}
   - component: {fileID: 6414880242625873380}
+  - component: {fileID: 4940830606965935622}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -175,6 +176,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4cd0114b63b5242b8e36be7a355b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootersPivot: {fileID: 0}
+  shooterPrefab: {fileID: 0}
+--- !u!65 &4940830606965935622
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6414880242625873379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.4444833, y: 1, z: 3.2247539}
+  m_Center: {x: 0.027466059, y: 0, z: -0.027466059}
 --- !u!1001 &7628723270174973418
 PrefabInstance:
   m_ObjectHideFlags: 0

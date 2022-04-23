@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.TryGetComponent<Bullet>(out Bullet bullet))
         {
             Debug.Log("HE COLISIONADO");
+            bullet.gameObject.SetActive(false);
             Destroy(this.gameObject);
         }
     }
