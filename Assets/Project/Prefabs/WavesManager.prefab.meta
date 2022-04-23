@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0f1335a82441ebc429ae716e939accaf
+=======
+guid: d55ddf26484b7c851b38920988c37176
+>>>>>>> Adding enemies spawn and dead
 PrefabImporter:
   externalObjects: {}
   userData: 

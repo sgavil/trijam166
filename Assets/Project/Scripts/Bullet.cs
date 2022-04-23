@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     Rigidbody cachedRb;
 
     [SerializeField]
-    float speed = 0.5f;
+    float speed = 3f;
 
     private static BulletProperties baseProperties = new BulletProperties();
 
@@ -21,8 +21,8 @@ public class Bullet : MonoBehaviour
     void Start()
     {
 
-     cachedObject = this.gameObject;
-     cachedRb = this.transform.GetComponentInChildren<Rigidbody>();
+        cachedObject = this.gameObject;
+        cachedRb = this.transform.GetComponentInChildren<Rigidbody>();
 
     }
 
@@ -51,11 +51,12 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cachedObject.activeInHierarchy){
+        if (cachedObject.activeInHierarchy)
+        {
 
              cachedRb.velocity = transform.forward * speed;
 
         }
-        
+
     }
 }
