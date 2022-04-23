@@ -20,6 +20,12 @@ public class RotationMovement : MonoBehaviour
 
     }
     
+    void Awake(){
+
+        rotationBaseSpeed = Random.Range(-rotationBaseSpeed, rotationBaseSpeed);
+
+    }
+
     void Start()
     {
         modifyRotationSpeed(0.0f);      

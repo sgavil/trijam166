@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 
 public class WavesManager : MonoBehaviour
 {
@@ -22,20 +25,32 @@ public class WavesManager : MonoBehaviour
     public Canvas powerUpsCanvas = null;
     public Button[] powerUpButtons = null;
 
+    Hashtable powerUps = new Hashtable();
+    List<PowerUp> generatedPowerUps;
+
+    void initializePowerUpsHashtable(){
+
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_SHOOTER, new IncrementShooter());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_SHOOTER_SPEED, new IncrementShooterSpeed());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_BULLETS_PER_SHOT, new IncrementBulletsPerShot());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_BOUNCES_ON_IMPACT, new IncrementBouncesOnImpact());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_BASE_DAMAGE, new IncrementBaseDamage());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_POISSON_CHANCE, new IncrementPoissonChance());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_POISSON_DAMAGE, new IncrementPoissonDamage());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_SLOW_CHANCE, new IncrementSlowChance());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_SLOW_AMOUNT, new IncrementSlowAmount());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_CRITICAL_CHANCE, new IncrementCriticalChance());
+        powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_CRITICAL_MULTIPLIER, new IncrementCriticalDamageMultiplier());
+
+    }
+
     private void Start()
     {
         if (powerUpsCanvas)
         {
             powerUpsCanvas.enabled = false;
         }
-        if (powerUpButtons != null && powerUpButtons.Length > 0)
-        {
-            foreach (var powerupButton in powerUpButtons)
-            {
-                powerupButton.onClick.AddListener(PowerUpButtonListener);
-            }
-        }
-        else
+        if (powerUpButtons == null || powerUpButtons.Length <= 0)        
         {
             Debug.LogError("Waves manager powerUp buttons list is empty");
         }
@@ -43,6 +58,8 @@ public class WavesManager : MonoBehaviour
         {
             Debug.LogError("Enemy prefab null or enemyComponent not found in prefab");
         }
+
+        initializePowerUpsHashtable();
         InstantiateWave();
     }
     private void Update()
@@ -79,6 +96,17 @@ public class WavesManager : MonoBehaviour
         m_LoopRunning = false;
         if (powerUpsCanvas && !powerUpsCanvas.enabled)
         {
+
+            PowerUps pus = new PowerUps();
+            generatedPowerUps = new List<PowerUp>();
+
+            foreach (var powerupButton in powerUpButtons)
+            {
+                var powerUp = (PowerUp)powerUps[pus.generateRandomPowerUp()];
+                powerupButton.GetComponentInChildren<TextMeshProUGUI>().text = powerUp.toString;
+                generatedPowerUps.Add(powerUp);
+            }
+
             powerUpsCanvas.enabled = true;
         }
         else
@@ -90,12 +118,14 @@ public class WavesManager : MonoBehaviour
         m_enemiesNumber += 2;
     }
 
-    private void PowerUpButtonListener()
+    public void PowerUpButtonListener(int index)
     {
-        //TODO: Add powerup to player
+        generatedPowerUps[index].apply();
+
         if (powerUpsCanvas && powerUpsCanvas.enabled)
         {
             powerUpsCanvas.enabled = false;
+
         }
         m_CurrentTime = 0;
         m_LoopRunning = true;

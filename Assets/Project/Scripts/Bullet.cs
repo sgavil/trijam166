@@ -9,8 +9,13 @@ public class Bullet : MonoBehaviour
     Rigidbody cachedRb;
 
     [SerializeField]
-    float speed = 0.3f;
+    float speed = 0.5f;
 
+    private static BulletProperties baseProperties = new BulletProperties();
+
+    private BulletProperties selfProperties;
+
+    public static BulletProperties BaseProperties { get { return baseProperties; } }
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +26,35 @@ public class Bullet : MonoBehaviour
 
     }
 
+    private void generateProperties(){
+
+        selfProperties = baseProperties.generateRandom();
+
+    }
+
+    public void activate(){
+
+        generateProperties();
+
+        CancelInvoke();
+        Invoke("deactivate", 5);
+
+    }
+
+    public void deactivate(){
+
+        cachedRb.velocity = Vector3.zero;
+        cachedObject.SetActive(false);
+
+    }
+
     // Update is called once per frame
     void Update()
     {
         if(cachedObject.activeInHierarchy){
 
              cachedRb.velocity = transform.forward * speed;
+
         }
         
     }
