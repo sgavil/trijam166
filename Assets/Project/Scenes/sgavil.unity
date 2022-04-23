@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.45027196, g: 0.49793082, b: 0.56262994, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -743,14 +743,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992871635}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.3008231, y: -0.3621719, z: -0.20268914, w: 0.858635}
+  m_LocalPosition: {x: 6.37, y: 1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 21.702, y: -53.192, z: -37.528}
 --- !u!1 &1212676103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,9 +1239,11 @@ MonoBehaviour:
   m_NumberOfWavesPerLevel: 3
   enemyPrefab: {fileID: 1816561615346094878, guid: 2029c4876cb09f738b19c41748a0a117, type: 3}
   m_enemiesMaxHP: 10
-  m_enemiesSpeed: 1
+  m_enemiesSpeed: 0.5
   m_enemiesNumber: 3
   m_enemiesGO: {fileID: 1555963378}
+  minDistanceFromViewport: 2
+  maxDistanceFromViewport: 5
   powerUpsCanvas: {fileID: 1212676106}
   powerUpButtons:
   - {fileID: 906563526}

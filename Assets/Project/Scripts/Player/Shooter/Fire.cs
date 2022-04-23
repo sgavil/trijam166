@@ -8,13 +8,16 @@ public class Fire : MonoBehaviour
     Pool bulletPool;
 
     Transform cachedTransform;
-    
+
     [SerializeField]
     Transform shotOrigin;
 
     private int bulletsPerShot = 1;
 
-    public int BulletsPerShot {get { return bulletsPerShot; } set { bulletsPerShot = value;}}
+    public int BulletsPerShot { get { return bulletsPerShot; } set { bulletsPerShot = value; } }
+
+    public float shootDelay = 1.5F;
+    private float lastShoot = 0F;
 
     void Start()
     {
@@ -25,25 +28,32 @@ public class Fire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        lastShoot += Time.deltaTime;
     }
 
-    public void shot(){
+    public void shot()
+    {
 
-        var bullet = bulletPool.getFromPool();
-        var bulletTranform = bullet.transform;
-        bulletTranform.forward = cachedTransform.forward;
-        bulletTranform.position = shotOrigin.position;
-        bulletTranform.GetComponent<Bullet>().activate();
-        bullet.SetActive(true);
+        if (lastShoot >= shootDelay)
+        {
+            var bullet = bulletPool.getFromPool();
+            var bulletTranform = bullet.transform;
+            bulletTranform.forward = cachedTransform.forward;
+            bulletTranform.position = shotOrigin.position;
+            bulletTranform.GetComponent<Bullet>().activate();
+            bullet.SetActive(true);
+            lastShoot = 0;
+        }
 
     }
 
-    public void fire(){
+    public void fire()
+    {
 
         var bullets = 0;
 
-        while(bullets < bulletsPerShot){
+        while (bullets < bulletsPerShot)
+        {
             Invoke("shot", 0.2f * bullets);
             bullets++;
         }

@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     GameObject shooterPrefab;
+    
 
     private void Awake()
     {
@@ -102,5 +103,13 @@ public class Player : MonoBehaviour
 
       }
 
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.TryGetComponent<Enemy>(out Enemy enemy)){
+            Die();
+        }
+    }
+    private void Die(){
+        Debug.Log("PLAYER DIED");
     }
 }

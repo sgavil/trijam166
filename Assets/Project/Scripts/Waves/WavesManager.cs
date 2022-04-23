@@ -18,6 +18,9 @@ public class WavesManager : MonoBehaviour
     public uint m_enemiesNumber = 3;
     public GameObject m_enemiesGO;
 
+    public float minDistanceFromViewport = 2f;
+    public float maxDistanceFromViewport = 5f;
+
     private bool m_SpawnedFirst = false;
 
 
@@ -28,7 +31,8 @@ public class WavesManager : MonoBehaviour
     Hashtable powerUps = new Hashtable();
     List<PowerUp> generatedPowerUps;
 
-    void initializePowerUpsHashtable(){
+    void initializePowerUpsHashtable()
+    {
 
         powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_SHOOTER, new IncrementShooter());
         powerUps.Add(PowerUps.POWER_UPS_OPTIONS.INCREMENT_SHOOTER_SPEED, new IncrementShooterSpeed());
@@ -44,7 +48,7 @@ public class WavesManager : MonoBehaviour
 
     }
 
-    float maxDistanceFromViewport = 5f;
+
 
     private void Start()
     {
@@ -52,7 +56,7 @@ public class WavesManager : MonoBehaviour
         {
             powerUpsCanvas.enabled = false;
         }
-        if (powerUpButtons == null || powerUpButtons.Length <= 0)        
+        if (powerUpButtons == null || powerUpButtons.Length <= 0)
         {
             Debug.LogError("Waves manager powerUp buttons list is empty");
         }
@@ -94,7 +98,7 @@ public class WavesManager : MonoBehaviour
     private void LevelUp()
     {
         m_LoopRunning = false;
-        
+
         if (powerUpsCanvas && !powerUpsCanvas.enabled)
         {
 
@@ -144,7 +148,8 @@ public class WavesManager : MonoBehaviour
 
     private void InstantiateEnemy()
     {
-        if(!m_SpawnedFirst){
+        if (!m_SpawnedFirst)
+        {
             m_SpawnedFirst = true;
         }
         var randomPos = GetRandomSpawnPositionOutsideCamView();
@@ -166,14 +171,15 @@ public class WavesManager : MonoBehaviour
     private Vector2 GetRandomSpawnPositionOutsideCamView()
     {
         var cam = Camera.main;
-        var radius = cam.orthographicSize * 2f;
-        var cameraPos = new Vector2(cam.transform.position.x,cam.transform.position.z);
+        var cameraPos = new Vector2(cam.transform.position.x, cam.transform.position.z);
+        
+        float viewport = (cam.orthographicSize * cam.aspect) * 1.7F ;
 
         //Random normalized position within a circle
         Vector2 normalizedRandomPos = Random.insideUnitCircle.normalized;
-
+        
         //Random distance outside of circle
-        float distance = Random.Range(radius, radius + maxDistanceFromViewport);
+        float distance = Random.Range(viewport , viewport + Random.Range(minDistanceFromViewport,maxDistanceFromViewport));
 
         //Multiplying to get values outside of circle, and adjusting position
         return normalizedRandomPos * distance + cameraPos;
