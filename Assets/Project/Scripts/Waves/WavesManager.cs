@@ -1,24 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
+<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+=======
+using System.Collections.Generic;
+using System.Linq;
+>>>>>>> Adding enemies spawn and dead
 
 public class WavesManager : MonoBehaviour
 {
     [Header("Waves attrb")]
-    public float m_TimeBetweenWaves = 2.0F;
     public uint m_NumberOfWavesPerLevel = 3;
-
-    private float m_CurrentTime = 0.0F;
     private uint m_CurrentWave = 0;
     private bool m_LoopRunning = true;
 
     [Header("Enemies stats")]
     public GameObject enemyPrefab;
     public uint m_enemiesMaxHP = 10;
-    public float m_enemiesSpeed = 5.0F;
+    public float m_enemiesSpeed = 1.0F;
     public uint m_enemiesNumber = 3;
+    public GameObject m_enemiesGO;
+
+    private bool m_SpawnedFirst = false;
 
 
     [Header("UI")]
@@ -44,6 +49,8 @@ public class WavesManager : MonoBehaviour
 
     }
 
+    float maxDistanceFromViewport = 5f;
+
     private void Start()
     {
         if (powerUpsCanvas)
@@ -66,10 +73,9 @@ public class WavesManager : MonoBehaviour
     {
         if (m_LoopRunning)
         {
-            m_CurrentTime += Time.deltaTime;
-
-            if (m_CurrentTime >= m_TimeBetweenWaves)
+            if (m_SpawnedFirst && m_enemiesGO.transform.childCount == 0)
             {
+                m_SpawnedFirst = false;
                 Debug.LogFormat("I've passed wave number {0}", m_CurrentWave);
                 m_CurrentWave++;
                 if (m_CurrentWave % m_NumberOfWavesPerLevel == 0)
@@ -81,11 +87,10 @@ public class WavesManager : MonoBehaviour
                 {
                     //TODO: Increase wave enemies stats either speed or hp (with some algorithm too)
                     m_enemiesMaxHP += 15;
-                    m_enemiesSpeed += 1.0F;
+                    m_enemiesSpeed += 0.5F;
 
                     InstantiateWave();
                 }
-                m_CurrentTime = 0;
 
             }
         }
@@ -94,6 +99,7 @@ public class WavesManager : MonoBehaviour
     private void LevelUp()
     {
         m_LoopRunning = false;
+        
         if (powerUpsCanvas && !powerUpsCanvas.enabled)
         {
 
@@ -127,27 +133,58 @@ public class WavesManager : MonoBehaviour
             powerUpsCanvas.enabled = false;
 
         }
-        m_CurrentTime = 0;
         m_LoopRunning = true;
         InstantiateWave();
     }
 
     private void InstantiateWave()
     {
-        Debug.LogFormat("Instantiating enemies for wave {0}", m_CurrentWave);
         for (var i = 0U; i < m_enemiesNumber; i++)
         {
-            var enemyGO = GameObject.Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-            if (enemyGO.TryGetComponent<Enemy>(out Enemy enemyComponent))
-            {
-                enemyComponent.m_MaxHP = m_enemiesMaxHP;
-                enemyComponent.m_Speed = m_enemiesSpeed;
-            }
-            else{
-                Debug.LogError("Enemy component not found while instantiating waves");
-            }
+            float randomTime = Random.Range(0.1F, 0.5F);
+            Invoke("InstantiateEnemy", randomTime);
+
         }
     }
+
+    private void InstantiateEnemy()
+    {
+        if(!m_SpawnedFirst){
+            m_SpawnedFirst = true;
+        }
+        var randomPos = GetRandomSpawnPositionOutsideCamView();
+        var enemyGO = Instantiate(enemyPrefab, new Vector3(randomPos.x, 0, randomPos.y), Quaternion.identity);
+        enemyGO.transform.parent = m_enemiesGO.transform;
+
+
+        if (enemyGO.TryGetComponent<Enemy>(out Enemy enemyComponent))
+        {
+            enemyComponent.m_MaxHP = m_enemiesMaxHP;
+            enemyComponent.m_Speed = m_enemiesSpeed;
+        }
+        else
+        {
+            Debug.LogError("Enemy component not found while instantiating waves");
+        }
+    }
+
+    private Vector2 GetRandomSpawnPositionOutsideCamView()
+    {
+        var cam = Camera.main;
+        var radius = cam.orthographicSize * 2f;
+        var cameraPos = new Vector2(cam.transform.position.x,cam.transform.position.z);
+
+        //Random normalized position within a circle
+        Vector2 normalizedRandomPos = Random.insideUnitCircle.normalized;
+
+        //Random distance outside of circle
+        float distance = Random.Range(radius, radius + maxDistanceFromViewport);
+
+        //Multiplying to get values outside of circle, and adjusting position
+        return normalizedRandomPos * distance + cameraPos;
+    }
+
+
 
 
 }
