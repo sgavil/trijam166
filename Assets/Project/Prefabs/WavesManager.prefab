@@ -1,10 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
---- !u!1 &8433472969337472244
-=======
---- !u!1 &4720311148892208843
->>>>>>> Adding enemies spawn and dead
+--- !u!1 &1238345315040744960
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,13 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 8433472969337472246}
-  - component: {fileID: 8433472969337472245}
-=======
-  - component: {fileID: 4720311148892208841}
-  - component: {fileID: 4720311148892208842}
->>>>>>> Adding enemies spawn and dead
+  - component: {fileID: 1238345315040744962}
+  - component: {fileID: 1238345315040744963}
   m_Layer: 0
   m_Name: WavesManager
   m_TagString: Untagged
@@ -26,76 +17,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!4 &8433472969337472246
-=======
---- !u!4 &4720311148892208841
->>>>>>> Adding enemies spawn and dead
+--- !u!4 &1238345315040744962
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 8433472969337472244}
+  m_GameObject: {fileID: 1238345315040744960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8433472969337472245
-=======
-  m_GameObject: {fileID: 4720311148892208843}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -18.640942, y: 0, z: 11.034124}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4720311149523203719}
+  - {fileID: 1238345315527965394}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4720311148892208842
->>>>>>> Adding enemies spawn and dead
+--- !u!114 &1238345315040744963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 8433472969337472244}
-=======
-  m_GameObject: {fileID: 4720311148892208843}
->>>>>>> Adding enemies spawn and dead
+  m_GameObject: {fileID: 1238345315040744960}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bd091dc644b796bc8c68bc8eb8794aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_TimeBetweenWaves: 2
-=======
->>>>>>> Adding enemies spawn and dead
   m_NumberOfWavesPerLevel: 3
   enemyPrefab: {fileID: 1816561615346094878, guid: 2029c4876cb09f738b19c41748a0a117, type: 3}
   m_enemiesMaxHP: 10
-  m_enemiesSpeed: 5
+  m_enemiesSpeed: 1
   m_enemiesNumber: 3
-<<<<<<< HEAD
-=======
-  m_enemiesGO: {fileID: 4720311149523203720}
->>>>>>> Adding enemies spawn and dead
+  m_enemiesGO: {fileID: 1238345315527965395}
   powerUpsCanvas: {fileID: 0}
   powerUpButtons:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-<<<<<<< HEAD
-=======
---- !u!1 &4720311149523203720
+--- !u!1 &1238345315527965395
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +64,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4720311149523203719}
+  - component: {fileID: 1238345315527965394}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -111,19 +72,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4720311149523203719
+--- !u!4 &1238345315527965394
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720311149523203720}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1238345315527965395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4720311148892208841}
+  m_Father: {fileID: 1238345315040744962}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Adding enemies spawn and dead

@@ -13,6 +13,20 @@ public class Enemy : MonoBehaviour
     private Transform m_playerTransform;
     private Rigidbody m_rigidBody;
 
+    private Vector3 m_lastTarget;
+    private Color debugColor;
+    private void getNewTargetPoint(){
+
+        Vector3 m_playerPosition = m_playerTransform.position; 
+        Vector3 selfPosition = transform.position;
+
+        var sphereCenter = Vector3.Lerp(selfPosition, m_playerPosition, 0.5f);
+        var sphereRadius = Vector3.Distance(sphereCenter, selfPosition) * 0.5f;
+
+        m_lastTarget = sphereCenter + Random.insideUnitSphere * sphereRadius;
+        m_lastTarget.y = m_playerPosition.y; 
+
+    }
 
     private void Start()
     {
@@ -23,12 +37,35 @@ public class Enemy : MonoBehaviour
         m_CurrentHP = m_MaxHP;
         m_rigidBody = GetComponent<Rigidbody>();
         m_playerTransform = FindObjectOfType<Player>().gameObject.transform;
+        m_lastTarget = m_playerTransform.position;
+        debugColor = Random.ColorHSV();
+        getNewTargetPoint();
     }
+
+    
 
     private void Update()
     {
-        transform.LookAt(m_playerTransform.position);
-        transform.position = Vector3.MoveTowards(transform.position, m_playerTransform.position, Time.deltaTime * m_Speed);
+        Vector3 m_playerPosition = m_playerTransform.position;        
+        Vector3 selfPosition = transform.position;
+
+        float distanceToPlayer = Vector3.Distance(selfPosition, m_playerPosition);
+        float distanceToTarget = Vector3.Distance(selfPosition, m_lastTarget);
+
+        if( distanceToPlayer > 2.0f){
+
+            if(distanceToTarget <= 0.5f){
+
+                getNewTargetPoint();
+            }
+                  
+        }
+
+        Debug.DrawLine(selfPosition, m_lastTarget, debugColor, Time.deltaTime);      
+        var targetRotation = Quaternion.LookRotation(m_lastTarget - selfPosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * distanceToTarget ); 
+        //transform.position = Vector3.MoveTowards(selfPosition, m_lastTarget, Time.deltaTime * m_Speed);
+        m_rigidBody.velocity = transform.forward * m_Speed;
     }
 
     private void OnTriggerEnter(Collider other)
