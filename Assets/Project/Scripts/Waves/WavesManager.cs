@@ -1,13 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-=======
-using System.Collections.Generic;
-using System.Linq;
->>>>>>> Adding enemies spawn and dead
 
 public class WavesManager : MonoBehaviour
 {
